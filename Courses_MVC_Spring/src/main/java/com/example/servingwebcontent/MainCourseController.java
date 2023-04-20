@@ -19,11 +19,14 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller 
-@SessionAttributes("progress")
+
 @RequestMapping(path="/") 
 public class MainCourseController {
   @Autowired 
   private CourseRepository courseRepository;
+
+  @Autowired
+  private CourseDetailsRepository courseDetailsRepository;
 
   @PostMapping(path="/admin/add") // Map POST Requests
   public @ResponseBody ModelAndView addNewCourse (
@@ -151,6 +154,12 @@ public class MainCourseController {
     return courseRepository.findAll();
   }
 
+  @GetMapping(path="/all-details")
+  public @ResponseBody Iterable<CourseDetails> getAllCourseDetailsList() {
+    
+    return courseDetailsRepository.findAll();
+  }
+
   @GetMapping("/list")
   public String getAllCourses(Model model) {
       model.addAttribute("courses", courseRepository.findAll());
@@ -162,6 +171,11 @@ public class MainCourseController {
     Course course = courseRepository.findById(course_id)
     .orElseThrow(() -> new IllegalArgumentException("Invalid course ID: " + course_id));
     model.addAttribute("courses", course);
+
+
+    CourseDetails courseDetails = courseDetailsRepository.findById(course_id).orElse(null);
+    model.addAttribute("details", courseDetails);
+
       return "course-details";
   }
 
@@ -179,22 +193,22 @@ public class MainCourseController {
       return "home";
   }
 
-  @PostMapping("/markAsDone")
-  public String markAsDone(@RequestParam int itemId, HttpSession session) {
-      int progress = (int) session.getAttribute("progress");
-      progress++;
-      session.setAttribute("progress", progress);
-      return "redirect:/";
-  }
+  // @PostMapping("/markAsDone")
+  // public String markAsDone(@RequestParam int itemId, HttpSession session) {
+  //     int progress = (int) session.getAttribute("progress");
+  //     progress++;
+  //     session.setAttribute("progress", progress);
+  //     return "redirect:/";
+  // }
 
-  @GetMapping("/view-progress")
-  public String myPage(Model model, HttpSession session) {
-      if (!model.containsAttribute("progress")) {
-          session.setAttribute("progress", 0);
-      }
-      // Other model attributes and view name
-      return "view-progress";
-  }
+  // @GetMapping("/view-progress")
+  // public String myPage(Model model, HttpSession session) {
+  //     if (!model.containsAttribute("progress")) {
+  //         session.setAttribute("progress", 0);
+  //     }
+  //     // Other model attributes and view name
+  //     return "view-progress";
+  // }
    
 }
 
