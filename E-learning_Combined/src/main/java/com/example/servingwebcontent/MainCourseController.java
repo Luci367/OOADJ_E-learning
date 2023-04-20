@@ -20,6 +20,9 @@ public class MainCourseController {
   @Autowired 
   private CourseRepository courseRepository;
 
+  @Autowired
+  private CourseDetailsRepository courseDetailsRepository;
+
   // @Autowired
   // private InstructorService instructorService;
 
@@ -130,6 +133,12 @@ public class MainCourseController {
     return courseRepository.findAll();
   }
 
+  @GetMapping(path="/all-details")
+  public @ResponseBody Iterable<CourseDetails> getAllCourseDetailsList() {
+    
+    return courseDetailsRepository.findAll();
+  }
+
   @GetMapping("/list")
   public String getAllCourses(Model model) {
       model.addAttribute("courses", courseRepository.findAll());
@@ -141,6 +150,11 @@ public class MainCourseController {
     Course course = courseRepository.findById(course_id)
     .orElseThrow(() -> new IllegalArgumentException("Invalid course ID: " + course_id));
     model.addAttribute("courses", course);
+
+
+    CourseDetails courseDetails = courseDetailsRepository.findById(course_id).orElse(null);
+    model.addAttribute("details", courseDetails);
+
       return "course-details";
   }
 
