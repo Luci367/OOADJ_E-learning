@@ -12,15 +12,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller 
+
 @RequestMapping(path="/") 
 public class MainCourseController {
   @Autowired 
   private CourseRepository courseRepository;
+
+  @Autowired
+  private CourseDetailsRepository courseDetailsRepository;
 
   @PostMapping(path="/admin/add") // Map POST Requests
   public @ResponseBody ModelAndView addNewCourse (
@@ -148,6 +154,12 @@ public class MainCourseController {
     return courseRepository.findAll();
   }
 
+  @GetMapping(path="/all-details")
+  public @ResponseBody Iterable<CourseDetails> getAllCourseDetailsList() {
+    
+    return courseDetailsRepository.findAll();
+  }
+
   @GetMapping("/list")
   public String getAllCourses(Model model) {
       model.addAttribute("courses", courseRepository.findAll());
@@ -159,7 +171,20 @@ public class MainCourseController {
     Course course = courseRepository.findById(course_id)
     .orElseThrow(() -> new IllegalArgumentException("Invalid course ID: " + course_id));
     model.addAttribute("courses", course);
+
+
+    CourseDetails courseDetails = courseDetailsRepository.findById(course_id).orElse(null);
+    model.addAttribute("details", courseDetails);
+
       return "course-details";
+  }
+
+  @GetMapping("/courses/{course_id}/view-course")
+  public String showIndividualCourse(Model model, @PathVariable("course_id") Integer course_id) {
+    Course course = courseRepository.findById(course_id)
+    .orElseThrow(() -> new IllegalArgumentException("Invalid course ID: " + course_id));
+    model.addAttribute("courses", course);
+      return "course-page";
   }
 
   @GetMapping({"/home", "/"})
@@ -168,5 +193,22 @@ public class MainCourseController {
       return "home";
   }
 
+  // @PostMapping("/markAsDone")
+  // public String markAsDone(@RequestParam int itemId, HttpSession session) {
+  //     int progress = (int) session.getAttribute("progress");
+  //     progress++;
+  //     session.setAttribute("progress", progress);
+  //     return "redirect:/";
+  // }
+
+  // @GetMapping("/view-progress")
+  // public String myPage(Model model, HttpSession session) {
+  //     if (!model.containsAttribute("progress")) {
+  //         session.setAttribute("progress", 0);
+  //     }
+  //     // Other model attributes and view name
+  //     return "view-progress";
+  // }
    
 }
+
