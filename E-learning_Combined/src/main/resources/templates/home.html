@@ -23,11 +23,11 @@
             <!-- <li class="nav-item mr-3">
               <a class="nav-link" href="#">Instructors</a>
             </li> -->
-            <li class="nav-item bg-dark text-white px-2 mr-3">
+            <!-- <li class="nav-item bg-dark text-white px-2 mr-3">
               <a class="nav-link text-white" href="#">Login</a>
-            </li>
+            </li> -->
             <li class="nav-item bg-light px-2 border border-dark">
-              <a class="nav-link bg-light text-dark" href="#">Sign Up</a>
+              <a class="nav-link bg-light text-dark" href="/signup">Login</a>
             </li>
           </ul>
         </div>
@@ -152,32 +152,11 @@
                     <div class="d-inline-block">⭐</div> 
                     </div>
                 </div>
-           
-                <a th:href="@{/courses/{id}(id=${course.course_id})}" class="btn btn-primary mt-2">See More</a>
+                
+                <a th:href="@{/unenrolledcourses/{id}(id=${course.course_id})}" class="btn btn-primary mt-2">See More</a>
                 </div>
             </div>
         </div>
-    
-        <!-- <table class="table table-bordered table-striped">
-        
-            <thead>
-                <tr>
-                    <th>Course ID</th>
-                    <th>Course Name</th>
-                    <th>Course Description</th>
-                    <th>Instructor Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="course: ${courses}">
-                    <td th:text="${course.course_id}" />
-                    <td th:text="${course.course_name}" />
-                    <td th:text="${course.course_desc}" />
-                    <td th:text="${course.instructor_name}" />
-                </tr>
-            </tbody>
-            
-        </table> -->
     </div>
   </section>
 

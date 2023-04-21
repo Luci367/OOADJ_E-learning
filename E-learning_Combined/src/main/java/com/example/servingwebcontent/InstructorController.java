@@ -55,10 +55,10 @@ public String handleInstructorLogin(@ModelAttribute("instructor") Instructor ins
       
         if (instructorService.isValidInstructor(instructor.getUsername(),instructor.getPassword())) {
             return "instructor_functions";
-        } else {
+        } else { 
             return "instructor_login";
         }
-    } 
+} 
 
 @GetMapping("/instructor_functions")
 public String InstructorFunctions(Model model, @RequestParam("username") String username) 

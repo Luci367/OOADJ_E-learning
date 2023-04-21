@@ -42,7 +42,7 @@ public class LearnerController
     return "learner_login";
   }
 
-@GetMapping("/learner_login")
+    @GetMapping("/learner_login")
     public String InstructorLogin(Model model) 
     {
         Learner learner = new Learner();

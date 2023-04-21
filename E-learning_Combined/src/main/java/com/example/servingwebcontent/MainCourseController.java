@@ -158,6 +158,17 @@ public class MainCourseController {
       return "course-details";
   }
 
+  //////////////////
+  @GetMapping("/unenrolledcourses/{course_id}")
+  public String getIndividualUnenrolledCourse(Model model, @PathVariable("course_id") Integer course_id) {
+    Course course = courseRepository.findById(course_id)
+    .orElseThrow(() -> new IllegalArgumentException("Invalid course ID: " + course_id));
+    model.addAttribute("courses", course);
+    CourseDetails courseDetails = courseDetailsRepository.findById(course_id).orElse(null);
+    model.addAttribute("details", courseDetails);
+      return "unenrolledcourse-details";
+  }
+  /////////////////////////////////////////////
   @GetMapping("/courses/{course_id}/view-course")
   public String showIndividualCourse(Model model, @PathVariable("course_id") Integer course_id) {
     Course course = courseRepository.findById(course_id)
