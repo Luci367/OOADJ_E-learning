@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<style>
+
+	table {
+  border-collapse: collapse;
+  width: 85%;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+th {
+  background-color: #ffce30;
+  color: black;
+}
+.p {
+  font-family: "Times New Roman", Times, serif;
+}
+</style>
+<title>Certificate Generator</title>
+</head>
+<body>
+<body>
+	<div align="center">
+		<h1>Select Student to generate certificate</h1>
+		<br/><br/>
+		<table border="1" cellpadding="20" >
+			<thead>
+				<tr>
+					<th>Student ID</th>
+					<th>User Name</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="lrnr : ${listLearner}">
+                <td th:text="${lrnr.id}">Student ID</td>
+                <td th:text="${lrnr.username}">User Name</td>
+                <td th:text="${lrnr.firstname}">First Name</td>
+                <td th:text="${lrnr.lastname}">Last Name</td>
+                <td>
+                    <a th:href="@{'/cert_gen/' + ${lrnr.id}}">Generate Certificate</a>
+                    
+                </td>
+            </tr>
+			</tbody>
+			
+		</table>
+	</div>
+</body>
+</body>
+</html>

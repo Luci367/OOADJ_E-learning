@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<style>
+	input[type=text] {
+  border: none;
+  font-size: 40px;
+  font-family: "Times New Roman", Times, Serif;
+}
+body {
+	background-image: url("https://i.pinimg.com/originals/8c/74/70/8c74702522ec08400f0b61876eb34c48.jpg");
+	background-size: cover;
+}
+</style>
+<title>Generate Certificate</title>
+</head>
+<body>
+    <div align="center">
+    <br/><br/><br/><br/><br/><br/>
+        <h1>This Certificate is to Award</h1>
+        <br /><br/><br/>
+        <form action="#"  th:object="${learner}" method="post">
+ 
+            <table border="0" cellpadding="10">
+            	<tr>
+                    <td>Student Id:</td>
+                    <td><input type="text" th:field="*{id}" readonly = "readonly" /></td>
+                </tr>
+                <tr>
+                    <td>Student Name:</td>
+                    <td><input type="text" th:field="*{firstname}" readonly = "readonly" /></td>
+                </tr>
+                                  
+            </table>
+        </form>
+        <br/><br/><br/><br/><br/><br/>
+        <h1>For Completing the Course</h1>
+    </div>
+</body>
+</html>
