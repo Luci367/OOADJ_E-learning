@@ -39,8 +39,8 @@
                         <li>Your First Java Program - Hello World</li>
                     </ol>
                     <div class="d-flex flex-row-reverse">
-                    <button type="button" class="btn btn-primary" onclick="markAsDone(1)">Mark as done</button>
-                    <input type="hidden" id="currentItem" value="1">
+                        <button type="button" class="btn btn-primary" id="btn-1" th:onclick="markAsDone(1)">Mark as done</button>
+                        <input type="hidden" id="currentItem" value="1">
                     </div>
                 </div>
             </div>
@@ -64,8 +64,8 @@
                         <li>If-Else Conditions</li>
                     </ol>
                     <div class="d-flex flex-row-reverse">
-                    <button type="button" class="btn btn-primary" onclick="markAsDone(1)">Mark as done</button>
-                    <input type="hidden" id="currentItem2" value="1">
+                        <button type="button" class="btn btn-primary" id="btn-2" th:onclick="markAsDone(2)">Mark as done</button>
+                        <input type="hidden" id="currentItem2" value="1">
                     </div>
                 </div>
             </div>
@@ -87,8 +87,8 @@
                         <li>For and while loops</li>
                     </ol>
                     <div class="d-flex flex-row-reverse">
-                    <button type="button" class="btn btn-primary" onclick="markAsDone(1)">Mark as done</button>
-                    <input type="hidden" id="currentItem3" value="1">
+                        <button type="button" class="btn btn-primary" id="btn-3" th:onclick="markAsDone(3)">Mark as done</button>
+                        <input type="hidden" id="currentItem3" value="1">
                     </div>
                 </div>
             </div>
@@ -99,20 +99,64 @@
 </div>
 </div>
 
-
-<div class="w-50 rounded p-3" style="border: 1px solid #090909; background-color: white; margin-left: 32px;">
-<div class="d-flex">
-<i class="fa fa-clock-o inline-block mr-3" style="font-size:24px"></i>
-<p class="fw-bolder inline-block px-3">Test what you've learned with a quiz</p>
-</div>
-<p>Learning a little each day adds up. Research shows that students who reinforce their learnings are more likely to reach their goals. Challenge yourself and assess your understanding with an interactive quiz.</p>
-<a class="btn btn-dark" th:href="@{/quiz}">Get Started</a>
-</div>
+<div class="w-100 d-flex">
+    <div class="rounded p-3" style="border: 1px solid #090909; background-color: white; margin-left: 32px;">
+    <div class="d-flex">
+    <i class="fa fa-clock-o inline-block mr-3" style="font-size:24px"></i>
+    <p class="fw-bolder inline-block px-3">Test what you've learned with a quiz</p>
+    </div>
+    <p>Learning a little each day adds up. Research shows that students who reinforce their learnings are more likely to reach their goals. Challenge yourself and assess your understanding with an interactive quiz.</p>
+    <a class="btn btn-dark" th:href="@{/quiz}">Get Started</a>
+    </div>
+    <div class="w-25 rounded p-3 ml-3" style="border: 1px solid #090909; background-color: white; margin-left: 32px;">
+        <div class="d-flex w-100 h-100 p-2">
+            <div>
+            <p class="fw-bolder inline-block px-3 text-center">Course Progress:</p>
+            <div class="d-flex justify-content-around px-3">
+            <h1 id="progress-indicator">0</h1>
+            <h1 class="px-2">%</h1>
+            </div>
+            </div>
+            <!-- <div>
+                <img src="https://illustrations.popsy.co/blue/digital-nomad.svg" height="100px" width="100px" />
+            </div> -->
+        </div>
+    </div>
 <!-- th:href="@{/courses/{id}/view-course/quiz(id=${courses.course_id})}" -->
 <script>
     function loadVideo(videoId) {
       const videoFrame = document.getElementById("video-frame");
       videoFrame.src = "https://www.youtube.com/embed/" + videoId;
+    }
+
+    let module1 = 0;
+    let module2 = 0;
+    let module3 = 0;
+    //https://illustrations.popsy.co/blue/student-in-the-classroom.svg
+    //https://illustrations.popsy.co/blue/work-party.svg
+    //https://illustrations.popsy.co/blue/app-launch.svg
+    //https://illustrations.popsy.co/blue/digital-nomad.svg
+    function markAsDone(module_num) {
+        if(module_num == 1)
+        {
+            module1 = 1;
+            document.getElementById("btn-1").innerText = "Done";
+        }
+        if(module_num == 2)
+        {
+            module2 = 1;
+            document.getElementById("btn-2").innerText = "Done";
+        }
+        if(module_num == 3)
+        {
+            module3 = 1;
+            document.getElementById("btn-3").innerText = "Done";
+        }
+        const indicator = document.getElementById("progress-indicator");
+        const percValue = (((module1 + module2 + module3)/3) * 100).toFixed(2);
+        indicator.innerText = percValue;
+
+        return percValue;
     }
     </script>
 </body>
